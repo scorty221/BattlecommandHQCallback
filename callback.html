@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BattlecommandHQ - Discord Authorization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #313338;
+            color: #dbdee1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #2b2d31;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
+            padding: 32px;
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .bot-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #5865f2 0%, #3c45a5 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 32px;
+            color: white;
+            position: relative;
+            box-shadow: 0 0 0 6px rgba(88, 101, 242, 0.1);
+        }
+
+        .bot-avatar::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 24px;
+            height: 24px;
+            background-color: #23a559;
+            border: 4px solid #2b2d31;
+            border-radius: 50%;
+        }
+
+        .bot-name {
+            color: #f2f3f5;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .bot-tag {
+            color: #b5bac1;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .auth-title {
+            color: #f2f3f5;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin: 24px 0 8px;
+        }
+
+        .auth-subtitle {
+            color: #b5bac1;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .status-container {
+            background-color: #1e1f22;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid #5865f2;
+        }
+
+        .status-success {
+            border-left-color: #23a559;
+            background-color: rgba(35, 165, 89, 0.1);
+        }
+
+        .status-error {
+            border-left-color: #f23f42;
+            background-color: rgba(242, 63, 66, 0.1);
+        }
+
+        .status-warning {
+            border-left-color: #f0b232;
+            background-color: rgba(240, 178, 50, 0.1);
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .status-icon {
+            font-size: 24px;
+        }
+
+        .status-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f2f3f5;
+        }
+
+        .status-description {
+            color: #b5bac1;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .code-block {
+            background-color: #111214;
+            border: 1px solid #1e1f22;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            color: #dbdee1;
+            word-break: break-all;
+            margin: 12px 0;
+            position: relative;
+        }
+
+        .code-label {
+            color: #949ba4;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .button {
+            background-color: #5865f2;
+            color: #ffffff;
+            border: none;
+            border-radius: 3px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.17s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .button:hover {
+            background-color: #4752c4;
+        }
+
+        .button:active {
+            background-color: #3c45a5;
+        }
+
+        .button-secondary {
+            background-color: #4e5058;
+            color: #ffffff;
+        }
+
+        .button-secondary:hover {
+            background-color: #5c5e66;
+        }
+
+        .button-danger {
+            background-color: #da373c;
+        }
+
+        .button-danger:hover {
+            background-color: #b32d32;
+        }
+
+        .button-success {
+            background-color: #248046;
+        }
+
+        .button-success:hover {
+            background-color: #1a6334;
+        }
+
+        .info-section {
+            background-color: #1e1f22;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .info-title {
+            color: #f2f3f5;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            color: #b5bac1;
+            font-size: 14px;
+            padding: 4px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .info-list li::before {
+            content: '•';
+            color: #5865f2;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .debug-section {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #3f4147;
+        }
+
+        .debug-toggle {
+            background: none;
+            border: none;
+            color: #949ba4;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            transition: color 0.17s ease;
+        }
+
+        .debug-toggle:hover {
+            color: #dbdee1;
+        }
+
+        .debug-content {
+            display: none;
+            background-color: #111214;
+            border-radius: 4px;
+            padding: 12px;
+            margin-top: 12px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .debug-content.show {
+            display: block;
+        }
+
+        .debug-item {
+            margin: 8px 0;
+            word-break: break-all;
+        }
+
+        .debug-key {
+            color: #f0b232;
+            font-weight: 600;
+        }
+
+        .debug-value {
+            color: #dbdee1;
+        }
+
+        .expiry-notice {
+            background-color: rgba(240, 178, 50, 0.1);
+            border: 1px solid #f0b232;
+            border-radius: 4px;
+            padding: 12px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .expiry-notice .icon {
+            color: #f0b232;
+            font-size: 16px;
+        }
+
+        .expiry-notice .text {
+            color: #f2f3f5;
+            font-size: 14px;
+        }
+
+        .discord-footer {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #3f4147;
+        }
+
+        .discord-footer .text {
+            color: #949ba4;
+            font-size: 12px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #23a559;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.error {
+            background-color: #f23f42;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                padding: 24px 16px;
+                margin: 10px;
+            }
+
+            .bot-name {
+                font-size: 20px;
+            }
+
+            .auth-title {
+                font-size: 18px;
+            }
+        }
+
+        /* Discord-like scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #2b2d31;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #1e1f22;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #3f4147;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="bot-avatar">⚔️</div>
+        <div class="bot-name">BattlecommandHQ</div>
+        <div class="bot-tag">BOT</div>
+    </div>
+
+    <div class="auth-title">Discord Authorization</div>
+    <div class="auth-subtitle">Connecting your account with BattlecommandHQ</div>
+
+    <div id="result"></div>
+
+    <div class="debug-section">
+        <button class="debug-toggle" onclick="toggleDebug()">
+            <span id="debug-icon">▶</span>
+            <span>Developer Information</span>
+        </button>
+        <div id="debug-content" class="debug-content"></div>
+    </div>
+
+    <div class="discord-footer">
+        <div class="text">Powered by Discord OAuth2</div>
+    </div>
+</div>
+
+<script>
+    // Get current URL and parameters
+    const currentUrl = window.location.href;
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const error = urlParams.get('error');
+    const errorDescription = urlParams.get('error_description');
+    const state = urlParams.get('state');
+
+    // Debug information
+    const debugInfo = {
+        'URL': currentUrl,
+        'Parameters': window.location.search || 'None',
+        'Code': code || 'Not provided',
+        'Error': error || 'None',
+        'Error Description': errorDescription || 'None',
+        'State': state || 'None',
+        'User Agent': navigator.userAgent,
+        'Timestamp': new Date().toISOString()
+    };
+
+    // Generate debug HTML
+    function generateDebugHtml() {
+        let debugHtml = '';
+        for (const [key, value] of Object.entries(debugInfo)) {
+            debugHtml += `
+                    <div class="debug-item">
+                        <span class="debug-key">${key}:</span> <span class="debug-value">${value}</span>
+                    </div>
+                `;
+        }
+        return debugHtml;
+    }
+
+    // Display result based on OAuth2 response
+    function displayResult() {
+        let resultHtml = '';
+
+        if (error) {
+            resultHtml = `
+                    <div class="status-container status-error">
+                        <div class="status-header">
+                            <span class="status-icon">❌</span>
+                            <span class="status-title">Authorization Failed</span>
+                        </div>
+                        <div class="status-description">
+                            BattlecommandHQ was unable to complete the authorization process.
+                        </div>
+                        <div class="code-label">Error Details</div>
+                        <div class="code-block">
+                            <strong>Type:</strong> ${error}<br>
+                            <strong>Description:</strong> ${errorDescription || 'No additional information provided'}
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title">Common Solutions</div>
+                            <ul class="info-list">
+                                <li>Verify the redirect URI matches your Discord application settings</li>
+                                <li>Check that all requested permissions are valid</li>
+                                <li>Ensure you clicked "Authorize" on the Discord page</li>
+                                <li>Try refreshing and authorizing again</li>
+                            </ul>
+                        </div>
+                        <button class="button button-danger" onclick="window.history.back()">
+                            ← Go Back
+                        </button>
+                        <button class="button button-secondary" onclick="window.location.reload()">
+                            🔄 Retry
+                        </button>
+                    </div>
+                `;
+        } else if (code) {
+            resultHtml = `
+                    <div class="status-container status-success">
+                        <div class="status-header">
+                            <span class="status-icon">✅</span>
+                            <span class="status-title">Authorization Successful</span>
+                        </div>
+                        <div class="status-description">
+                            BattlecommandHQ has been successfully authorized! Your authorization code is ready to use.
+                        </div>
+                        <div class="code-label">Authorization Code</div>
+                        <div class="code-block" id="authCode">${code}</div>
+                        <button class="button button-success" onclick="copyCode()">
+                            📋 Copy Code
+                        </button>
+                        <button class="button button-secondary" onclick="window.close()">
+                            ✖️ Close
+                        </button>
+                        <div class="expiry-notice">
+                            <span class="icon">⏰</span>
+                            <span class="text">This code expires in 10 minutes. Use it immediately in your application.</span>
+                        </div>
+                    </div>
+                `;
+        } else {
+            resultHtml = `
+                    <div class="status-container status-warning">
+                        <div class="status-header">
+                            <span class="status-icon">⚠️</span>
+                            <span class="status-title">No Authorization Data</span>
+                        </div>
+                        <div class="status-description">
+                            No authorization code was received. This may indicate an incomplete authorization process.
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title">Possible Causes</div>
+                            <ul class="info-list">
+                                <li>You navigated to this page directly</li>
+                                <li>The Discord authorization was cancelled</li>
+                                <li>There's a configuration issue with the redirect URI</li>
+                                <li>The authorization request timed out</li>
+                            </ul>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title">Expected Redirect URI</div>
+                            <div class="code-block">${currentUrl.split('?')[0]}</div>
+                        </div>
+                        <button class="button" onclick="window.history.back()">
+                            🔄 Try Authorization Again
+                        </button>
+                    </div>
+                `;
+        }
+
+        document.getElementById('result').innerHTML = resultHtml;
+    }
+
+    // Copy authorization code
+    function copyCode() {
+        const codeText = document.getElementById('authCode').textContent;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(codeText).then(() => {
+                showToast('Code copied to clipboard!', 'success');
+            }).catch(() => {
+                fallbackCopy(codeText);
+            });
+        } else {
+            fallbackCopy(codeText);
+        }
+    }
+
+    // Fallback copy method
+    function fallbackCopy(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+            showToast('Code copied to clipboard!', 'success');
+        } catch (err) {
+            showToast('Failed to copy code', 'error');
+        }
+
+        document.body.removeChild(textArea);
+    }
+
+    // Toggle debug information
+    function toggleDebug() {
+        const debugContent = document.getElementById('debug-content');
+        const debugIcon = document.getElementById('debug-icon');
+
+        if (debugContent.classList.contains('show')) {
+            debugContent.classList.remove('show');
+            debugIcon.textContent = '▶';
+        } else {
+            debugContent.innerHTML = generateDebugHtml();
+            debugContent.classList.add('show');
+            debugIcon.textContent = '▼';
+        }
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(20px)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // Initialize the page
+    displayResult();
+
+    // Log debug information to console
+    console.log('BattlecommandHQ OAuth2 Debug:', debugInfo);
+</script>
+</body>
+</html>
