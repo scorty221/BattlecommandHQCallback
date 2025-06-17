@@ -40,15 +40,16 @@
         .bot-avatar {
             width: 80px;
             height: 80px;
+            background: linear-gradient(135deg, #5865f2 0%, #3c45a5 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
+            color: white;
             position: relative;
             box-shadow: 0 0 0 6px rgba(88, 101, 242, 0.1);
             overflow: hidden;
-            background: linear-gradient(135deg, #5865f2 0%, #3c45a5 100%);
         }
 
         .bot-avatar img {
@@ -68,7 +69,7 @@
             background-color: #23a559;
             border: 4px solid #2b2d31;
             border-radius: 50%;
-            z-index: 2;
+            z-index: 1;
         }
 
         .bot-name {
@@ -406,4 +407,226 @@
 <div class="container">
     <div class="header">
         <div class="bot-avatar">
-            <img src="data:image/jpeg;base64,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
+            <img src="https://your-hosting-domain.com/path/to/your/avatar.jpg" alt="BattlecommandHQ Avatar" onerror="this.style.display='none'; this.parentElement.innerHTML='⚔️'; this.parentElement.style.fontSize='32px';">
+        </div>
+        <div class="bot-name">BattlecommandHQ</div>
+        <div class="bot-tag">BOT</div>
+    </div>
+
+    <div class="auth-title">Discord Authorization</div>
+    <div class="auth-subtitle">Connecting your account with BattlecommandHQ</div>
+
+    <div id="result"></div>
+
+    <div class="debug-section">
+        <button class="debug-toggle" onclick="toggleDebug()">
+            <span id="debug-icon">▶</span>
+            <span>Developer Information</span>
+        </button>
+        <div id="debug-content" class="debug-content"></div>
+    </div>
+
+    <div class="discord-footer">
+        <div class="text">Powered by Discord OAuth2</div>
+    </div>
+</div>
+
+<script>
+    // Get current URL and parameters
+    const currentUrl = window.location.href;
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const error = urlParams.get('error');
+    const errorDescription = urlParams.get('error_description');
+    const state = urlParams.get('state');
+
+    // Debug information
+    const debugInfo = {
+        'URL': currentUrl,
+        'Parameters': window.location.search || 'None',
+        'Code': code || 'Not provided',
+        'Error': error || 'None',
+        'Error Description': errorDescription || 'None',
+        'State': state || 'None',
+        'User Agent': navigator.userAgent,
+        'Timestamp': new Date().toISOString()
+    };
+
+    // Generate debug HTML
+    function generateDebugHtml() {
+        let debugHtml = '';
+        for (const [key, value] of Object.entries(debugInfo)) {
+            debugHtml += `
+                    <div class="debug-item">
+                        <span class="debug-key">${key}:</span> <span class="debug-value">${value}</span>
+                    </div>
+                `;
+        }
+        return debugHtml;
+    }
+
+    // Display result based on OAuth2 response
+    function displayResult() {
+        let resultHtml = '';
+
+        if (error) {
+            resultHtml = `
+                    <div class="status-container status-error">
+                        <div class="status-header">
+                            <span class="status-icon">❌</span>
+                            <span class="status-title">Authorization Failed</span>
+                        </div>
+                        <div class="status-description">
+                            BattlecommandHQ was unable to complete the authorization process.
+                        </div>
+                        <div class="code-label">Error Details</div>
+                        <div class="code-block">
+                            <strong>Type:</strong> ${error}<br>
+                            <strong>Description:</strong> ${errorDescription || 'No additional information provided'}
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title">Common Solutions</div>
+                            <ul class="info-list">
+                                <li>Verify the redirect URI matches your Discord application settings</li>
+                                <li>Check that all requested permissions are valid</li>
+                                <li>Ensure you clicked "Authorize" on the Discord page</li>
+                                <li>Try refreshing and authorizing again</li>
+                            </ul>
+                        </div>
+                        <button class="button button-danger" onclick="window.history.back()">
+                            ← Go Back
+                        </button>
+                        <button class="button button-secondary" onclick="window.location.reload()">
+                            🔄 Retry
+                        </button>
+                    </div>
+                `;
+        } else if (code) {
+            resultHtml = `
+                    <div class="status-container status-success">
+                        <div class="status-header">
+                            <span class="status-icon">✅</span>
+                            <span class="status-title">Authorization Successful</span>
+                        </div>
+                        <div class="status-description">
+                            BattlecommandHQ has been successfully authorized! Your authorization code is ready to use.
+                        </div>
+                        <div class="code-label">Authorization Code</div>
+                        <div class="code-block" id="authCode">${code}</div>
+                        <button class="button button-success" onclick="copyCode()">
+                            📋 Copy Code
+                        </button>
+                        <button class="button button-secondary" onclick="window.close()">
+                            ✖️ Close
+                        </button>
+                        <div class="expiry-notice">
+                            <span class="icon">⏰</span>
+                            <span class="text">This code expires in 10 minutes. Use it immediately in your application.</span>
+                        </div>
+                    </div>
+                `;
+        } else {
+            resultHtml = `
+                    <div class="status-container status-warning">
+                        <div class="status-header">
+                            <span class="status-icon">⚠️</span>
+                            <span class="status-title">No Authorization Data</span>
+                        </div>
+                        <div class="status-description">
+                            No authorization code was received. This may indicate an incomplete authorization process.
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title">Possible Causes</div>
+                            <ul class="info-list">
+                                <li>You navigated to this page directly</li>
+                                <li>The Discord authorization was cancelled</li>
+                                <li>There's a configuration issue with the redirect URI</li>
+                                <li>The authorization request timed out</li>
+                            </ul>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title">Expected Redirect URI</div>
+                            <div class="code-block">${currentUrl.split('?')[0]}</div>
+                        </div>
+                        <button class="button" onclick="window.history.back()">
+                            🔄 Try Authorization Again
+                        </button>
+                    </div>
+                `;
+        }
+
+        document.getElementById('result').innerHTML = resultHtml;
+    }
+
+    // Copy authorization code
+    function copyCode() {
+        const codeText = document.getElementById('authCode').textContent;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(codeText).then(() => {
+                showToast('Code copied to clipboard!', 'success');
+            }).catch(() => {
+                fallbackCopy(codeText);
+            });
+        } else {
+            fallbackCopy(codeText);
+        }
+    }
+
+    // Fallback copy method
+    function fallbackCopy(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+            showToast('Code copied to clipboard!', 'success');
+        } catch (err) {
+            showToast('Failed to copy code', 'error');
+        }
+
+        document.body.removeChild(textArea);
+    }
+
+    // Toggle debug information
+    function toggleDebug() {
+        const debugContent = document.getElementById('debug-content');
+        const debugIcon = document.getElementById('debug-icon');
+
+        if (debugContent.classList.contains('show')) {
+            debugContent.classList.remove('show');
+            debugIcon.textContent = '▶';
+        } else {
+            debugContent.innerHTML = generateDebugHtml();
+            debugContent.classList.add('show');
+            debugIcon.textContent = '▼';
+        }
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(20px)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // Initialize the page
+    displayResult();
+
+    // Log debug information to console
+    console.log('BattlecommandHQ OAuth2 Debug:', debugInfo);
+</script>
+</body>
+</html>
